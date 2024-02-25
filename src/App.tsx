@@ -1,39 +1,17 @@
-import {useEffect, useState} from 'react'
-import {apiInstance} from './api/apiInstance.ts'
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
+import {Divider, FloatButton} from 'antd'
+import {Header} from './components/Header/Header.tsx'
+import {Home} from './pages/Home/Home.tsx'
 
+const queryClient = new QueryClient()
 
 export const App = () => {
-	const [items, setItems] = useState([])
-
-	const auth = async () => {
-		const DATA = {
-			'action': 'get_ids',
-			'params': {'offset': 0, 'limit': 50},
-		}
-		const response = await apiInstance.post('http://api.valantis.store:40000/', DATA)
-		const itemsList = await apiInstance.post('http://api.valantis.store:40000/', {
-			'action': 'get_items',
-			'params': {
-				'ids': response.data.result,
-			},
-		})
-		setItems(itemsList.data.result as [])
-	}
-
-	useEffect(() => {
-		void auth()
-	}, [])
-
-
 	return (
-		<div>
-			<h1>App</h1>
-			{items.length ? items.map((el: any) => (
-				<div key={el.id}>
-					<div>{el.product}</div>
-					<div>{el.price}</div>
-				</div>
-			)) : <div>Loading</div>}
-		</div>
+		<QueryClientProvider client={queryClient}>
+			<Header />
+			<Divider style={{margin: 0}} />
+			<Home />
+			<FloatButton.BackTop visibilityHeight={0} />
+		</QueryClientProvider>
 	)
 }
