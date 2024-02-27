@@ -1,20 +1,22 @@
 import {AxiosResponse} from 'axios'
 import {apiInstance} from '../api/apiInstance.ts'
-import {IResponse} from '../types/apiResponse.ts'
-import {IProduct} from '../types/product.ts'
+import {CONSTANTS} from '../constants/CONSTANTS.ts'
+import {ActionTypes} from '../types/enums/actionTypes.ts'
+import {IResponse} from '../types/interfaces/apiResponse.interface.ts'
+import {IProduct} from '../types/interfaces/product.interface.ts'
 
 class ProductsService {
 	async getAllProducts() {
 		const response: AxiosResponse<IResponse<string[]>> = await apiInstance.post('', {
-			'action': 'get_ids',
+			action: ActionTypes.GetIDs,
 		})
 		return response.data.result
 	}
 
-	async getProductsIds(offset: number = 0, limit: number = 50) {
+	async getProductsIds(offset: number = CONSTANTS.DEFAULT_OFFSET, limit: number = CONSTANTS.DEFAULT_LIMIT) {
 		const response: AxiosResponse<IResponse<string[]>> = await apiInstance.post('', {
-			'action': 'get_ids',
-			'params': {
+			action: ActionTypes.GetIDs,
+			params: {
 				offset,
 				limit,
 			},
@@ -22,11 +24,22 @@ class ProductsService {
 		return response.data.result
 	}
 
+	async getAllProductsByFilter(price: number, brand: string) {
+		const response: AxiosResponse<IResponse<string[]>> = await apiInstance.post('', {
+			action: ActionTypes.GetFilteredItems,
+			params: {
+				price,
+				brand,
+			},
+		})
+		return response.data.result
+	}
+
 	async getProductsByIds(products: string[]) {
-		const response: AxiosResponse<IResponse<IProduct[]>> = await apiInstance.post('http://api.valantis.store:40000/', {
-			'action': 'get_items',
-			'params': {
-				'ids': products,
+		const response: AxiosResponse<IResponse<IProduct[]>> = await apiInstance.post('', {
+			action: ActionTypes.GetItems,
+			params: {
+				ids: products,
 			},
 		})
 		return response.data.result

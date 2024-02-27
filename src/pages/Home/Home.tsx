@@ -1,27 +1,34 @@
-import {LoadingOutlined} from '@ant-design/icons'
-import {Divider, Flex, Pagination, Spin} from 'antd'
+import {Divider, Flex, Pagination} from 'antd'
 import {Error} from '../../components/Error/Error.tsx'
+import {FilterMenu} from '../../components/FilterMenu/FilterMenu.tsx'
 import {ProductCard} from '../../components/ProductCard/ProductCard.tsx'
+import {ProductCardSkeleton} from '../../components/ProductCardSkeleton/ProductCardSkeleton.tsx'
 import {useQueryProducts} from '../../hooks/useQueryProducts.tsx'
 
 export const Home = () => {
-	const {changePage, isLoading, isError, data, total} = useQueryProducts()
+	const {changePage, isLoading, isError, data, total, limit} = useQueryProducts()
 
 	if (isError) {
 		return <Error />
 	}
 
+	const productsList = () => {
+		if (!isLoading && data) {
+			return data.map((product) => <ProductCard key={product.id} {...product} />)
+		}
+		return Array.from(Array(limit)).map(() => <ProductCardSkeleton key={Math.random()} />)
+	}
+
 	return (
 		<div style={{height: '100%'}}>
-			<Flex justify='space-around' align='center' wrap='wrap' style={{margin: '20px 0'}} gap='10px'>
-				{!isLoading && total ?
-					data?.map((product) => <ProductCard key={product.id} brand={product.brand} id={product.id} price={product.price} product={product.product} />)
-					: <Spin indicator={<LoadingOutlined style={{fontSize: 24}} spin />} />
-				}
+			<FilterMenu products={data} />
+			<Divider style={{margin: 0}} />
+			<Flex justify='space-around' align='center' wrap='wrap' gap='10px' style={{margin: '10px 0'}}>
+				{productsList()}
 			</Flex>
 			<Divider />
 			<Flex justify='center' style={{margin: '20px 0'}}>
-				<Pagination defaultCurrent={1} total={total - 50} showSizeChanger={false} defaultPageSize={50} onChange={changePage} />
+				<Pagination defaultCurrent={1} total={total} showSizeChanger={false} defaultPageSize={limit} onChange={changePage} />
 			</Flex>
 		</div>
 	)
