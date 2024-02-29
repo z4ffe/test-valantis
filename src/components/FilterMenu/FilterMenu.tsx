@@ -7,14 +7,19 @@ interface Props {
 }
 
 export const FilterMenu: FC<Props> = ({products}) => {
-	const brands = Array.from(new Set(products?.map(product => product.brand)))
+	const brands = Array.from(new Set(products?.map(product => {
+		if (product.brand) {
+			return product.brand
+		}
+	})))
 
 	return (
 		<Flex gap='20px' align='center' justify='center' style={{height: '60px'}}>
-			<Input placeholder='Sort by name' style={{width: '10%'}} />
-			<Input placeholder='Find by price' style={{width: '10%'}} />
-			<Select style={{width: '10%'}} placeholder='Select brand' onChange={(e) => console.log(e)} options={brands.map(brand => {
-				return {value: brand, label: <span>{brand || 'Unknown'}</span>}
+			<Input placeholder='Find by name' style={{width: '10%'}} onChange={(e) => console.log(e.target.value)} />
+			<Input placeholder='Find by price' style={{width: '10%'}} onChange={(e) => console.log(e.target.value)} />
+			<Select style={{width: '10%'}} placeholder='Select by brand' onChange={(e) => console.log(e)} options={brands.map(brand => {
+				console.log(brand)
+				return {value: brand, label: <span>{brand}</span>}
 			})} />
 		</Flex>
 	)

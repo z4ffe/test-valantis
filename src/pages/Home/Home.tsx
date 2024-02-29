@@ -1,4 +1,5 @@
 import {Divider, Flex, Pagination} from 'antd'
+import {Background} from '../../components/Background/Background.tsx'
 import {Error} from '../../components/Error/Error.tsx'
 import {FilterMenu} from '../../components/FilterMenu/FilterMenu.tsx'
 import {ProductCard} from '../../components/ProductCard/ProductCard.tsx'
@@ -19,6 +20,7 @@ export const Home = () => {
 		return Array.from(Array(limit)).map(() => <ProductCardSkeleton key={Math.random()} />)
 	}
 
+
 	return (
 		<div style={{height: '100%'}}>
 			<FilterMenu products={data} />
@@ -30,6 +32,7 @@ export const Home = () => {
 			<Flex justify='center' style={{margin: '20px 0'}}>
 				<Pagination defaultCurrent={1} total={total} showSizeChanger={false} defaultPageSize={limit} onChange={changePage} />
 			</Flex>
+			<Background />
 		</div>
 	)
 }

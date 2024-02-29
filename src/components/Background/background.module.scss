@@ -1,0 +1,33 @@
+.backgroundOne {
+  position: absolute;
+  top: 5%;
+  right: 3%;
+  width: 400px;
+  height: 400px;
+  background-color: #fcfcfc;
+  border-radius: 10px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
+  z-index: -1;
+}
+
+.backgroundTwo {
+  position: absolute;
+  top: 35%;
+  left: -5%;
+  width: 500px;
+  height: 500px;
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
+  z-index: -1;
+}
+
+@media only screen and (max-width: 600px) {
+  .backgroundOne {
+    display: none;
+  }
+
+  .backgroundTwo {
+    display: none;
+  }
+}

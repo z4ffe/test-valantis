@@ -20,7 +20,7 @@ export const useQueryProducts = () => {
 	const {data, isError, isLoading} = useQuery({
 		queryKey: ['products', offset, limit],
 		queryFn: fetchProducts,
-		retry: 3,
+		retry: 1,
 	})
 
 	const changePage = (page: number) => {
