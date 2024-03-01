@@ -1,6 +1,6 @@
 import {ReloadOutlined} from '@ant-design/icons'
 import {useQuery} from '@tanstack/react-query'
-import {AutoComplete, Button, Flex, InputNumber, Select, Tooltip} from 'antd'
+import {AutoComplete, Button, Flex, Input, Select, Tooltip} from 'antd'
 import {FC, useEffect, useState} from 'react'
 import {CONSTANTS} from '../../constants/CONSTANTS.ts'
 import {productService} from '../../services/productsService.ts'
@@ -29,8 +29,8 @@ export const FilterMenu: FC<Props> = ({handleProductFilter, resetFilters}) => {
 	})
 
 	useEffect(() => {
-		(data && !isLoading) && data?.map((field: any) => {
-			switch (field.value.field) {
+		(data?.length && !isLoading) && data?.map((field: any) => {
+			switch (field?.value?.field) {
 				case (FieldTypes.Brand):
 					const allBrands = Array.from(new Set(field.value.result)) as string[]
 					return setBrands(allBrands)
@@ -43,7 +43,9 @@ export const FilterMenu: FC<Props> = ({handleProductFilter, resetFilters}) => {
 
 	return (
 		<Flex gap='20px' align='center' justify='center' style={{height: '60px', backgroundColor: 'white'}}>
-			<InputNumber
+			<Input
+				type='number'
+				allowClear
 				addonAfter={CONSTANTS.CURRENCY_SYMBOL}
 				disabled={isLoading}
 				placeholder='Find by price' style={{width: '10%'}}
