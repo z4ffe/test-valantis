@@ -1,10 +1,14 @@
 import {ReloadOutlined} from '@ant-design/icons'
 import {useQuery} from '@tanstack/react-query'
-import {AutoComplete, Button, Flex, Input, Select, Tooltip} from 'antd'
+import {Button, Flex, Tooltip} from 'antd'
 import {FC, FocusEvent, useEffect, useState} from 'react'
-import {CONSTANTS} from '../../constants/CONSTANTS.ts'
+import {useMediaQuery} from 'react-responsive'
+import {RESPONSIVE} from '../../constants/constants.ts'
 import {productService} from '../../services/productsService.ts'
 import {FieldTypes} from '../../types/fieldTypes.ts'
+import {BrandInput} from './BrandInput/BrandInput.tsx'
+import {NameInput} from './NameInput/NameInput.tsx'
+import {PriceInput} from './PriceInput/PriceInput.tsx'
 
 interface Props {
 	handleProductFilter: (type: FieldTypes | null, value: string | number) => void
@@ -14,6 +18,7 @@ interface Props {
 export const FilterMenu: FC<Props> = ({handleProductFilter, resetFilters}) => {
 	const [brands, setBrands] = useState<string[]>([])
 	const [names, setNames] = useState<string[]>([])
+	const isTablet = useMediaQuery({query: RESPONSIVE.TABLET})
 
 	const fetchAllFields = async () => {
 		return await Promise.allSettled(Object.values(FieldTypes).map(async field => {
@@ -54,40 +59,14 @@ export const FilterMenu: FC<Props> = ({handleProductFilter, resetFilters}) => {
 	}, [data])
 
 	return (
-		<Flex gap='20px' align='center' justify='center' style={{height: '60px', backgroundColor: 'white'}}>
-			<Input
-				type='number'
-				allowClear
-				addonAfter={CONSTANTS.CURRENCY_SYMBOL}
-				disabled={isLoading}
-				placeholder='Find by price' style={{width: '10%'}}
-				onBlur={handlePrice}
-				onChange={handlePrice}
-			/>
-			<AutoComplete
-				allowClear
-				disabled={isLoading}
-				virtual={false}
-				placeholder='Search by name' style={{width: '20%'}}
-				options={names.map(name => ({value: name}))}
-				onClear={() => handleProductFilter(null, '')}
-				onSelect={(value) => handleProductFilter(FieldTypes.Name, value)}
-				filterOption={(inputValue, option) =>
-					option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-				}
-			/>
-			<Select disabled={isLoading}
-					  allowClear
-					  virtual={false}
-					  onChange={(value) => handleProductFilter(FieldTypes.Brand, value)} style={{width: '10%'}} placeholder='Find by brand'
-					  options={brands.map(brand => {
-						  return {
-							  value: brand,
-							  label: <span key={brand}>{brand}</span>,
-						  }
-					  })} />
+		<Flex gap='20px' align='center' justify='center' style={{padding: '10px 0', backgroundColor: 'white'}} vertical={isTablet}>
+			<PriceInput isLoading={isLoading} handlePrice={handlePrice} />
+			<NameInput isLoading={isLoading} names={names} handleProductFilter={handleProductFilter} />
+			<BrandInput isLoading={isLoading} handleProductFilter={handleProductFilter} brands={brands} />
 			<Tooltip title='Reset filters'>
-				<Button onClick={resetFilters} icon={<ReloadOutlined />} />
+				<Button onClick={resetFilters}
+						  icon={<ReloadOutlined />}
+						  style={{width: isTablet ? '20%' : '40px'}} />
 			</Tooltip>
 		</Flex>
 	)

@@ -1,6 +1,6 @@
 import {AxiosResponse} from 'axios'
 import {apiInstance} from '../api/apiInstance.ts'
-import {CONSTANTS} from '../constants/CONSTANTS.ts'
+import {Constants} from '../constants/constants.ts'
 import {ActionTypes} from '../types/enums/actionTypes.ts'
 import {FieldTypes} from '../types/fieldTypes.ts'
 import {IResponse} from '../types/interfaces/apiResponse.interface.ts'
@@ -14,7 +14,7 @@ class ProductsService {
 		return response.data.result
 	}
 
-	async getProductsIds(offset: number = CONSTANTS.DEFAULT_OFFSET, limit: number = CONSTANTS.DEFAULT_LIMIT) {
+	async getProductsIds(offset: number = Constants.DEFAULT_OFFSET, limit: number = Constants.DEFAULT_LIMIT) {
 		const response: AxiosResponse<IResponse<string[]>> = await apiInstance.post('', {
 			action: ActionTypes.GetIDs,
 			params: {
@@ -25,7 +25,7 @@ class ProductsService {
 		return response.data.result
 	}
 
-	async getAllProductsByFilter(field?: any, value?: string | number, offset: number = CONSTANTS.DEFAULT_OFFSET, limit: number = CONSTANTS.DEFAULT_LIMIT) {
+	async getAllProductsByFilter(field?: any, value?: string | number, offset: number = Constants.DEFAULT_OFFSET, limit: number = Constants.DEFAULT_LIMIT) {
 		const response: AxiosResponse<IResponse<string[]>> = await apiInstance.post('', {
 			action: ActionTypes.GetFilteredItems,
 			params: {

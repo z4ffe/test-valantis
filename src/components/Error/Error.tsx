@@ -1,5 +1,5 @@
 import {Button, Flex, Result} from 'antd'
-import {CONSTANTS} from '../../constants/CONSTANTS.ts'
+import {Constants} from '../../constants/constants.ts'
 
 export const Error = () => {
 	return (
@@ -7,7 +7,7 @@ export const Error = () => {
 			<Result
 				status='500'
 				title='500'
-				subTitle={CONSTANTS.ERROR_TEXT}
+				subTitle={Constants.ERROR_TEXT}
 				extra={<a href='/'><Button>Try again</Button></a>}
 			/>
 		</Flex>

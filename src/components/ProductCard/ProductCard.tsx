@@ -1,13 +1,16 @@
 import {AlignRightOutlined, NumberOutlined, WalletOutlined} from '@ant-design/icons'
 import {Card, Flex, Typography} from 'antd'
 import {FC} from 'react'
+import {useMediaQuery} from 'react-responsive'
+import {RESPONSIVE} from '../../constants/constants.ts'
 import {IProduct} from '../../types/interfaces/product.interface.ts'
 
 export const ProductCard: FC<IProduct> = ({brand, id, price, product}) => {
+	const isMobile = useMediaQuery({query: RESPONSIVE.TABLET})
 	const formattedPrice = Intl.NumberFormat('ru', {notation: 'standard', style: 'currency', currency: 'rub'}).format(price)
 
 	return (
-		<Card title={brand ?? 'Unknown'} style={{width: '400px'}} hoverable>
+		<Card title={brand ?? 'Unknown'} style={{width: isMobile ? '100%' : '400px'}} hoverable>
 			<Flex vertical>
 				<Flex vertical gap='5px'>
 					<Flex gap='10px'>

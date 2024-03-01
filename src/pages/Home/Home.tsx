@@ -5,7 +5,7 @@ import {Error} from '../../components/Error/Error.tsx'
 import {FilterMenu} from '../../components/FilterMenu/FilterMenu.tsx'
 import {ProductCard} from '../../components/ProductCard/ProductCard.tsx'
 import {ProductCardSkeleton} from '../../components/ProductCardSkeleton/ProductCardSkeleton.tsx'
-import {useQueryProducts} from '../../hooks/useQueryProducts.tsx'
+import {useQueryProducts} from '../../hooks/useQueryProducts.ts'
 import {FieldTypes} from '../../types/fieldTypes.ts'
 
 export const Home = () => {
