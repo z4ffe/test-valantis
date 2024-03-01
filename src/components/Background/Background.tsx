@@ -18,7 +18,7 @@ export const Background = () => {
 	return (
 		<>
 			<div className={styles.backgroundOne} style={{transform: `rotate(40deg) translateY(-${scrollYPos}px)`}} />
-			<div className={styles.backgroundTwo} style={{transform: `translateX(-${scrollYPos}px)`}} />
+			<div className={styles.backgroundTwo} style={{transform: `translateY(-${scrollYPos}px)`}} />
 		</>
 	)
 }

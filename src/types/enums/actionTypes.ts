@@ -1,5 +1,6 @@
 export enum ActionTypes {
 	'GetIDs' = 'get_ids',
 	'GetItems' = 'get_items',
-	'GetFilteredItems' = 'filter'
+	'GetFilteredItems' = 'filter',
+	'GetFields' = 'get_fields',
 }

@@ -4,4 +4,6 @@ export const CONSTANTS = {
 	DEFAULT_LIMIT: 50,
 	FOOTER_AUTHOR: 'Paul Lightman',
 	GITHUB_LINK: 'https://github.com/z4ffe',
+	ERROR_TEXT: 'Sorry, something went wrong',
+	CURRENCY_SYMBOL: '₽',
 }

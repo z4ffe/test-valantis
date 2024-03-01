@@ -2,6 +2,7 @@ import {AxiosResponse} from 'axios'
 import {apiInstance} from '../api/apiInstance.ts'
 import {CONSTANTS} from '../constants/CONSTANTS.ts'
 import {ActionTypes} from '../types/enums/actionTypes.ts'
+import {FieldTypes} from '../types/fieldTypes.ts'
 import {IResponse} from '../types/interfaces/apiResponse.interface.ts'
 import {IProduct} from '../types/interfaces/product.interface.ts'
 
@@ -24,12 +25,23 @@ class ProductsService {
 		return response.data.result
 	}
 
-	async getAllProductsByFilter(price: number, brand: string) {
+	async getAllProductsByFilter(field?: any, value?: string | number, offset: number = CONSTANTS.DEFAULT_OFFSET, limit: number = CONSTANTS.DEFAULT_LIMIT) {
 		const response: AxiosResponse<IResponse<string[]>> = await apiInstance.post('', {
 			action: ActionTypes.GetFilteredItems,
 			params: {
-				price,
-				brand,
+				[field]: value,
+				offset,
+				limit,
+			},
+		})
+		return response.data.result
+	}
+
+	async getFields(field: FieldTypes) {
+		const response: AxiosResponse<IResponse<string[]>> = await apiInstance.post('', {
+			action: ActionTypes.GetFields,
+			params: {
+				field,
 			},
 		})
 		return response.data.result

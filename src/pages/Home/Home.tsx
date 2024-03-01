@@ -1,29 +1,46 @@
-import {Divider, Flex, Pagination} from 'antd'
+import {Divider, Empty, Flex, Pagination} from 'antd'
+import {useState} from 'react'
 import {Background} from '../../components/Background/Background.tsx'
 import {Error} from '../../components/Error/Error.tsx'
 import {FilterMenu} from '../../components/FilterMenu/FilterMenu.tsx'
 import {ProductCard} from '../../components/ProductCard/ProductCard.tsx'
 import {ProductCardSkeleton} from '../../components/ProductCardSkeleton/ProductCardSkeleton.tsx'
 import {useQueryProducts} from '../../hooks/useQueryProducts.tsx'
+import {FieldTypes} from '../../types/fieldTypes.ts'
 
 export const Home = () => {
-	const {changePage, isLoading, isError, data, total, limit} = useQueryProducts()
+	const [filter, setFilter] = useState<string | number>('')
+	const [filterType, setFilterType] = useState<FieldTypes | null>(null)
+
+	const {changePage, isLoading, isError, data, total, limit} = useQueryProducts(filterType, filter)
+
+	const resetFilters = () => {
+		setFilter('')
+		setFilterType(null)
+	}
+
+	const handleProductFilter = (type: FieldTypes | null, value: string | number) => {
+		setFilter(value)
+		setFilterType(type)
+	}
 
 	if (isError) {
 		return <Error />
 	}
 
 	const productsList = () => {
+		if (!isLoading && !data?.length) {
+			return <Empty />
+		}
 		if (!isLoading && data) {
 			return data.map((product) => <ProductCard key={product.id} {...product} />)
 		}
 		return Array.from(Array(limit)).map(() => <ProductCardSkeleton key={Math.random()} />)
 	}
 
-
 	return (
 		<div style={{height: '100%'}}>
-			<FilterMenu products={data} />
+			<FilterMenu handleProductFilter={handleProductFilter} resetFilters={resetFilters} />
 			<Divider style={{margin: 0}} />
 			<Flex justify='space-around' align='center' wrap='wrap' gap='10px' style={{margin: '10px 0'}}>
 				{productsList()}
