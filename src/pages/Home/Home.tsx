@@ -39,7 +39,7 @@ export const Home = () => {
 	}
 
 	return (
-		<div style={{height: '100%'}}>
+		<Flex vertical style={{height: '100%', position: 'relative'}}>
 			<FilterMenu handleProductFilter={handleProductFilter} resetFilters={resetFilters} />
 			<Divider style={{margin: 0}} />
 			<Flex justify='space-around' align='center' wrap='wrap' gap='10px' style={{margin: '10px 0'}}>
@@ -50,6 +50,6 @@ export const Home = () => {
 				<Pagination defaultCurrent={1} total={total} showSizeChanger={false} defaultPageSize={limit} onChange={changePage} />
 			</Flex>
 			<Background />
-		</div>
+		</Flex>
 	)
 }
