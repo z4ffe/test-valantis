@@ -5,7 +5,7 @@
 <hr/>
 <div align="center">FE: yarn run dev</div>
 <hr/>
-<div align="center"><a href="123">GH-Pages Preview</a> 
+<div align="center"><a href="test-valantis-sigma.vercel.app">Vercel Preview</a> 
 </div>
 <hr>
 <div align="center"><img src="preview.png" width='500'></div>
