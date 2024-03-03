@@ -19,7 +19,7 @@ export const NameInput: FC<Props> = ({isLoading, names, handleProductFilter}) =>
 			disabled={isLoading}
 			virtual={false}
 			placeholder='Search by name'
-			style={{width: isTablet ? '100%' : '20%'}}
+			style={{width: isTablet ? '100%' : '15%'}}
 			options={names.map(name => ({value: name}))}
 			onClear={() => handleProductFilter(null, '')}
 			onSelect={(value) => handleProductFilter(FieldTypes.Name, value)}

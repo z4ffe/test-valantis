@@ -1,7 +1,6 @@
-import {ReloadOutlined} from '@ant-design/icons'
 import {useQuery} from '@tanstack/react-query'
-import {Button, Flex, Tooltip} from 'antd'
-import {FC, FocusEvent, useEffect, useState} from 'react'
+import {Flex} from 'antd'
+import {FC, useEffect, useState} from 'react'
 import {useMediaQuery} from 'react-responsive'
 import {RESPONSIVE} from '../../constants/constants.ts'
 import {productService} from '../../services/productsService.ts'
@@ -12,10 +11,9 @@ import {PriceInput} from './PriceInput/PriceInput.tsx'
 
 interface Props {
 	handleProductFilter: (type: FieldTypes | null, value: string | number) => void
-	resetFilters: () => void
 }
 
-export const FilterMenu: FC<Props> = ({handleProductFilter, resetFilters}) => {
+export const FilterMenu: FC<Props> = ({handleProductFilter}) => {
 	const [brands, setBrands] = useState<string[]>([])
 	const [names, setNames] = useState<string[]>([])
 	const isTablet = useMediaQuery({query: RESPONSIVE.TABLET})
@@ -46,28 +44,16 @@ export const FilterMenu: FC<Props> = ({handleProductFilter, resetFilters}) => {
 		})
 	}
 
-	const handlePrice = (event: FocusEvent<HTMLInputElement>) => {
-		const price = Number(event.target.value)
-		if (!price) {
-			return handleProductFilter(null, '')
-		}
-		handleProductFilter(FieldTypes.Price, price)
-	}
 
 	useEffect(() => {
-		void sortFields()
+		sortFields()
 	}, [data])
 
 	return (
 		<Flex gap='20px' align='center' justify='center' style={{padding: '10px 0', backgroundColor: 'white'}} vertical={isTablet}>
-			<PriceInput isLoading={isLoading} handlePrice={handlePrice} />
-			<NameInput isLoading={isLoading} names={names} handleProductFilter={handleProductFilter} />
+			<PriceInput isLoading={isLoading} handleProductFilter={handleProductFilter} />
+			<NameInput isLoading={isLoading} handleProductFilter={handleProductFilter} names={names} />
 			<BrandInput isLoading={isLoading} handleProductFilter={handleProductFilter} brands={brands} />
-			<Tooltip title='Reset filters'>
-				<Button onClick={resetFilters}
-						  icon={<ReloadOutlined />}
-						  style={{width: isTablet ? '20%' : '40px'}} />
-			</Tooltip>
 		</Flex>
 	)
 }

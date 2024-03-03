@@ -18,7 +18,7 @@ export const BrandInput: FC<Props> = ({isLoading, handleProductFilter, brands}) 
 				  allowClear
 				  virtual={false}
 				  onChange={(value) => handleProductFilter(FieldTypes.Brand, value)}
-				  style={{width: isTablet ? '100%' : '10%'}}
+				  style={{width: isTablet ? '100%' : '15%'}}
 				  placeholder='Find by brand'
 				  options={brands.map(brand => {
 					  return {
