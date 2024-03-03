@@ -14,11 +14,6 @@ export const Home = () => {
 
 	const {changePage, isLoading, isError, data, total, limit} = useQueryProducts(filterType, filter)
 
-	const resetFilters = () => {
-		setFilter('')
-		setFilterType(null)
-	}
-
 	const handleProductFilter = (type: FieldTypes | null, value: string | number) => {
 		setFilter(value)
 		setFilterType(type)
@@ -40,7 +35,7 @@ export const Home = () => {
 
 	return (
 		<Flex vertical style={{height: '100%', position: 'relative'}}>
-			<FilterMenu handleProductFilter={handleProductFilter} resetFilters={resetFilters} />
+			<FilterMenu handleProductFilter={handleProductFilter} />
 			<Divider style={{margin: 0}} />
 			<Flex justify='space-around' align='center' wrap='wrap' gap='10px' style={{margin: '10px 0'}}>
 				{productsList()}
