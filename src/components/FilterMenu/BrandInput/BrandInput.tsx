@@ -20,11 +20,11 @@ export const BrandInput: FC<Props> = ({isLoading, handleProductFilter, brands}) 
 				  onChange={(value) => handleProductFilter(FieldTypes.Brand, value)}
 				  style={{width: isTablet ? '100%' : '15%'}}
 				  placeholder='Find by brand'
-				  options={brands.map(brand => {
-					  return {
+				  options={brands.map(brand =>
+					  ({
 						  value: brand,
 						  label: <span key={brand}>{brand}</span>,
-					  }
-				  })} />
+					  }),
+				  )} />
 	)
 }

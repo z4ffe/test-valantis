@@ -25,11 +25,11 @@ class ProductsService {
 		return response.data.result
 	}
 
-	async getAllProductsByFilter(field?: any, value?: string | number, offset: number = Constants.DEFAULT_OFFSET, limit: number = Constants.DEFAULT_LIMIT) {
+	async getAllProductsByFilter(field?: FieldTypes, value?: string | number, offset: number = Constants.DEFAULT_OFFSET, limit: number = Constants.DEFAULT_LIMIT) {
 		const response: AxiosResponse<IResponse<string[]>> = await apiInstance.post('', {
 			action: ActionTypes.GetFilteredItems,
 			params: {
-				[field]: value,
+				[`${field}`]: value,
 				offset,
 				limit,
 			},

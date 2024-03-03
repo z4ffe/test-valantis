@@ -13,6 +13,11 @@ interface Props {
 	handleProductFilter: (type: FieldTypes | null, value: string | number) => void
 }
 
+interface FieldResult {
+	field: FieldTypes
+	result: string[]
+}
+
 export const FilterMenu: FC<Props> = ({handleProductFilter}) => {
 	const [brands, setBrands] = useState<string[]>([])
 	const [names, setNames] = useState<string[]>([])
@@ -20,8 +25,9 @@ export const FilterMenu: FC<Props> = ({handleProductFilter}) => {
 
 	const fetchAllFields = async () => {
 		return await Promise.allSettled(Object.values(FieldTypes).map(async field => {
-			const result = await productService.getFields(field)
-			return {field, result}
+			const response = await productService.getFields(field)
+			const result: FieldResult = {field, result: response}
+			return result
 		}))
 	}
 
@@ -32,14 +38,14 @@ export const FilterMenu: FC<Props> = ({handleProductFilter}) => {
 	})
 
 	const sortFields = () => {
-		!isLoading && data?.length && data?.map((field: any) => {
-			switch (field?.value?.field) {
-				case (FieldTypes.Brand):
-					const allBrands = Array.from(new Set(field.value.result)).filter(brand => !!brand) as string[]
-					return setBrands(allBrands)
-				case (FieldTypes.Name):
-					const allNames = Array.from(new Set(field.value.result)) as string[]
-					return setNames(allNames)
+		!isLoading && data?.length && data?.map((field) => {
+			if (field.status === 'fulfilled') {
+				switch (field.value.field) {
+					case (FieldTypes.Brand):
+						return setBrands(Array.from(new Set(field.value.result)).filter(brand => !!brand))
+					case (FieldTypes.Name):
+						return setNames(Array.from(new Set(field.value.result)))
+				}
 			}
 		})
 	}
