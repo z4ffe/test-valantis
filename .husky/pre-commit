@@ -1,3 +1,4 @@
 # .husky/pre-commit
 
 yarn lint
+yarn build

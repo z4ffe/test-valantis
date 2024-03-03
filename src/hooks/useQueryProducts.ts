@@ -2,7 +2,7 @@ import {useQuery} from '@tanstack/react-query'
 import {useState} from 'react'
 import {Constants} from '../constants/constants.ts'
 import {productService} from '../services/productsService.ts'
-import {FieldTypes} from '../types/fieldTypes.ts'
+import {FieldTypes} from '../types/enums/fieldTypes.ts'
 import {removeDuplicateProducts} from '../utils/removeDuplicateProducts.ts'
 
 export const useQueryProducts = (field?: FieldTypes | null, fieldValue?: string | number) => {

@@ -6,9 +6,9 @@ import {FilterMenu} from '../../components/FilterMenu/FilterMenu.tsx'
 import {ProductCard} from '../../components/ProductCard/ProductCard.tsx'
 import {ProductCardSkeleton} from '../../components/ProductCardSkeleton/ProductCardSkeleton.tsx'
 import {useQueryProducts} from '../../hooks/useQueryProducts.ts'
-import {FieldTypes} from '../../types/fieldTypes.ts'
+import {FieldTypes} from '../../types/enums/fieldTypes.ts'
 
-export const Home = () => {
+export const Main = () => {
 	const [filter, setFilter] = useState<string | number>('')
 	const [filterType, setFilterType] = useState<FieldTypes | null>(null)
 

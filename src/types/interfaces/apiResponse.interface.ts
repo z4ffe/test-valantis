@@ -1,3 +1,3 @@
-export interface IResponse<T> {
+export interface ApiResponse<T> {
 	result: T
 }

@@ -2,7 +2,7 @@ import {Select} from 'antd'
 import {FC} from 'react'
 import {useMediaQuery} from 'react-responsive'
 import {RESPONSIVE} from '../../../constants/constants.ts'
-import {FieldTypes} from '../../../types/fieldTypes.ts'
+import {FieldTypes} from '../../../types/enums/fieldTypes.ts'
 
 interface Props {
 	isLoading: boolean

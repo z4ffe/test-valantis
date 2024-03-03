@@ -2,7 +2,7 @@ import {Input} from 'antd'
 import {FC, FocusEvent} from 'react'
 import {useMediaQuery} from 'react-responsive'
 import {Constants, RESPONSIVE} from '../../../constants/constants.ts'
-import {FieldTypes} from '../../../types/fieldTypes.ts'
+import {FieldTypes} from '../../../types/enums/fieldTypes.ts'
 
 interface Props {
 	isLoading: boolean

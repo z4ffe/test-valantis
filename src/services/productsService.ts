@@ -2,20 +2,20 @@ import {AxiosResponse} from 'axios'
 import {apiInstance} from '../api/apiInstance.ts'
 import {Constants} from '../constants/constants.ts'
 import {ActionTypes} from '../types/enums/actionTypes.ts'
-import {FieldTypes} from '../types/fieldTypes.ts'
-import {IResponse} from '../types/interfaces/apiResponse.interface.ts'
+import {FieldTypes} from '../types/enums/fieldTypes.ts'
+import {ApiResponse} from '../types/interfaces/apiResponse.interface.ts'
 import {IProduct} from '../types/interfaces/product.interface.ts'
 
 class ProductsService {
 	async getAllProducts() {
-		const response: AxiosResponse<IResponse<string[]>> = await apiInstance.post('', {
+		const response: AxiosResponse<ApiResponse<string[]>> = await apiInstance.post('', {
 			action: ActionTypes.GetIDs,
 		})
 		return response.data.result
 	}
 
 	async getProductsIds(offset: number = Constants.DEFAULT_OFFSET, limit: number = Constants.DEFAULT_LIMIT) {
-		const response: AxiosResponse<IResponse<string[]>> = await apiInstance.post('', {
+		const response: AxiosResponse<ApiResponse<string[]>> = await apiInstance.post('', {
 			action: ActionTypes.GetIDs,
 			params: {
 				offset,
@@ -26,7 +26,7 @@ class ProductsService {
 	}
 
 	async getAllProductsByFilter(field?: FieldTypes, value?: string | number, offset: number = Constants.DEFAULT_OFFSET, limit: number = Constants.DEFAULT_LIMIT) {
-		const response: AxiosResponse<IResponse<string[]>> = await apiInstance.post('', {
+		const response: AxiosResponse<ApiResponse<string[]>> = await apiInstance.post('', {
 			action: ActionTypes.GetFilteredItems,
 			params: {
 				[`${field}`]: value,
@@ -38,7 +38,7 @@ class ProductsService {
 	}
 
 	async getFields(field: FieldTypes) {
-		const response: AxiosResponse<IResponse<string[]>> = await apiInstance.post('', {
+		const response: AxiosResponse<ApiResponse<string[]>> = await apiInstance.post('', {
 			action: ActionTypes.GetFields,
 			params: {
 				field,
@@ -48,7 +48,7 @@ class ProductsService {
 	}
 
 	async getProductsByIds(products: string[]) {
-		const response: AxiosResponse<IResponse<IProduct[]>> = await apiInstance.post('', {
+		const response: AxiosResponse<ApiResponse<IProduct[]>> = await apiInstance.post('', {
 			action: ActionTypes.GetItems,
 			params: {
 				ids: products,
